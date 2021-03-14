@@ -1,2 +1,2 @@
 # foliar-disease-identification
-Identify the category of foliar disease in apple treas
+Identify the category of foliar disease in apple trees
