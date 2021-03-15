@@ -20,6 +20,15 @@ To run the application, run file main.py located in app folder with uvicorn serv
 
 To preview EDA and model training, go to app/EDA/eda.ipynb and open file with google collab. you can also train your own model with your own hyperparameters using this file but you will need to download images data from the drive link provided above.
 
+<img width="767" alt="screenshot1" src="https://user-images.githubusercontent.com/18510632/111152564-ad1d8d00-85b2-11eb-880f-73a4e17eeaa7.PNG">
+<img width="772" alt="screenshot2" src="https://user-images.githubusercontent.com/18510632/111152568-ae4eba00-85b2-11eb-848a-26f7b8c7ff9f.PNG">
+<img width="765" alt="screenshot3" src="https://user-images.githubusercontent.com/18510632/111152569-ae4eba00-85b2-11eb-916d-e334507bf5c4.PNG">
+<img width="770" alt="screenshot4" src="https://user-images.githubusercontent.com/18510632/111152570-aee75080-85b2-11eb-8480-1061bf93b26a.PNG">
+<img width="775" alt="screenshot5" src="https://user-images.githubusercontent.com/18510632/111152572-af7fe700-85b2-11eb-9510-97826a4b4471.PNG">
+<img width="761" alt="screenshot6" src="https://user-images.githubusercontent.com/18510632/111152573-af7fe700-85b2-11eb-908e-46e0fa86e826.PNG">
+<img width="768" alt="screenshot7" src="https://user-images.githubusercontent.com/18510632/111152574-b0187d80-85b2-11eb-96a9-4f17f43a7072.PNG">
+
+
 
 # Docker Guide
 Our docker image is having little bit of trouble at this moment so it might give you an error, we will resolve the issue and update it soon.
