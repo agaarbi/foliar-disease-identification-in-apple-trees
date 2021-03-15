@@ -16,6 +16,11 @@ To run the application, run file main.py located in app folder with uvicorn serv
 ![FastAPI Working with image as input](https://user-images.githubusercontent.com/18510632/111150840-69c21f00-85b0-11eb-8f0c-9f0f4af7a665.png)
 
 
+# EDA
+
+To preview EDA and model training, go to app/EDA/eda.ipynb and open file with google collab. you can also train your own model with your own hyperparameters using this file but you will need to download images data from the drive link provided above.
+
+
 # Docker Guide
 Our docker image is having little bit of trouble at this moment so it might give you an error, we will resolve the issue and update it soon.
 
