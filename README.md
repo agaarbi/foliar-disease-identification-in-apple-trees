@@ -11,3 +11,7 @@ Currently, disease diagnosis is based on human scouting which as mentioned is a 
 Data -> you will need to download images data to train your model from this link https://drive.google.com/drive/folders/1_OqKAxASFk1VYgGAJqnheKEab6KP32bn?usp=sharing , if you dont have access to this link please email us at siraj@cipherslab.com
 
 P.S. It is not necessary for you to download images and train the model as we have also uploaded pretrained model in this repo. 
+
+To run the application, run file main.py located in app folder with uvicorn server and from postman you can send a sample image on localhost:PORT/input/
+![FastAPI Working with image as input](https://user-images.githubusercontent.com/18510632/111150840-69c21f00-85b0-11eb-8f0c-9f0f4af7a665.png)
+
