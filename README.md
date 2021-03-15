@@ -15,3 +15,7 @@ P.S. It is not necessary for you to download images and train the model as we ha
 To run the application, run file main.py located in app folder with uvicorn server and from postman you can send a sample image on localhost:PORT/input/
 ![FastAPI Working with image as input](https://user-images.githubusercontent.com/18510632/111150840-69c21f00-85b0-11eb-8f0c-9f0f4af7a665.png)
 
+
+# Docker Guide
+Our docker image is having little bit of trouble at this moment so it might give you an error, we will resolve the issue and update it soon.
+
