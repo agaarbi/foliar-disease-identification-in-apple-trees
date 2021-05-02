@@ -39,7 +39,7 @@ from sklearn import metrics
 # import matplotlib.pyplot as plt
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
-from dagster import solid,pipeline,execute_pipeline
+from dagster import solid, pipeline, execute_pipeline, OutputDefinition, Output
 
 # tqdm.pandas()
 # import plotly.express as px
@@ -73,24 +73,41 @@ TRAIN_PATH = "../data/train.csv"
 
 # sub = pd.read_csv(SUB_PATH)
 
-@solid()
+@solid( output_defs=[
+        OutputDefinition(name="test_data"),
+        OutputDefinition(name="train_data"),
+    ],)
 def load_csv_files(context):
     test_data = pd.read_csv(TEST_PATH)
     train_data = pd.read_csv(TRAIN_PATH)
-    return test_data,train_data
+    yield Output(test_data, output_name="test_data")
+    yield Output(train_data, output_name="train_data")
+    #//return test_data,train_data
 
 
 def format_path(st):
     return IMAGE_PATH + st + '.jpg'
 
-@solid
+@solid( output_defs=[
+        OutputDefinition(name="train_paths"),
+        OutputDefinition(name="valid_paths"),
+        OutputDefinition(name="train_labels"),
+        OutputDefinition(name="valid_labels"),
+OutputDefinition(name="test_paths"),
+    ],)
 def load_paths(context,test_data,train_data):
     test_paths = test_data.image_id.apply(format_path).values
     train_paths = train_data.image_id.apply(format_path).values
     train_labels = np.float32(train_data.loc[:, 'healthy':'scab'].values)
     train_paths, valid_paths, train_labels, valid_labels = train_test_split(train_paths, train_labels, test_size=0.15,
                                                                         random_state=2020)
-    return train_paths, valid_paths, train_labels, valid_labels, test_paths
+    yield Output(train_paths, output_name="train_paths")
+    yield Output(valid_paths, output_name="valid_paths")
+    yield Output(train_labels, output_name="train_labels")
+    yield Output(valid_labels, output_name="valid_labels")
+    yield Output(test_paths, output_name="test_paths")
+
+   # return train_paths, valid_paths, train_labels, valid_labels, test_paths
 
 
 def decode_image(filename, label=None, image_size=(512, 512)):
@@ -117,7 +134,12 @@ def data_augment(image, label=None):
 strategy = tf.distribute.get_strategy()
 
 BATCH_SIZE = 16 * strategy.num_replicas_in_sync
-@solid
+@solid(output_defs=[
+        OutputDefinition(name="train_dataset"),
+        OutputDefinition(name="valid_dataset"),
+        OutputDefinition(name="test_dataset"),
+
+    ],)
 def setting(context,train_paths, valid_paths, train_labels, valid_labels, test_paths):
     AUTO = tf.data.experimental.AUTOTUNE
 
@@ -148,7 +170,11 @@ def setting(context,train_paths, valid_paths, train_labels, valid_labels, test_p
             .batch(BATCH_SIZE)
     )
 
-    return train_dataset,valid_dataset,test_dataset
+    yield Output(train_dataset, output_name="train_dataset")
+    yield Output(valid_dataset, output_name="valid_dataset")
+    yield Output(test_dataset, output_name="test_dataset")
+
+    #return train_dataset,valid_dataset,test_dataset
 
 
 # helper function
