@@ -69,7 +69,7 @@ def modelRunLoc(file):
     elif(resultInArgMax==3):
         return "Scab"
     else:
-        return "WTF"
+        return "Invalid"
 
 
 #preds = predict(my_image)
