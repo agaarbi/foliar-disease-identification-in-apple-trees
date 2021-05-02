@@ -12,10 +12,13 @@ Data -> you will need to download images data to train your model from this link
 
 P.S. It is not necessary for you to download images and train the model as we have also uploaded pretrained model in this repo. 
 
+# PHASE II
+
+# FAST-API
 To run the application, run file main.py located in app folder with uvicorn server and from postman you can send a sample image on localhost:PORT/input/
 ![FastAPI Working with image as input](https://user-images.githubusercontent.com/18510632/111150840-69c21f00-85b0-11eb-8f0c-9f0f4af7a665.png)
 
-# PHASE II
+
 
 # EDA
 
@@ -32,9 +35,47 @@ To preview EDA and model training, go to app/EDA/eda.ipynb and open file with go
 
 
 # Docker Guide
+Port Expose is 80
+
+Packages Installed
+-tensorflow base image
+-fastapi
+-uvicorn
+-opencv
+-keras
+
 
 
 
 # PHASE III
+
+
+# DOCKER RUNNING ON LOCAL MACHINE
+
+![Dockers container working](https://user-images.githubusercontent.com/18510632/116822723-eaa59c00-ab99-11eb-8ad3-9d0323c04d2e.png)
+
+# DOCKER ON CLOUD
+
+![WhatsApp Image 2021-05-02 at 23 01 41](https://user-images.githubusercontent.com/18510632/116823029-7a981580-ab9b-11eb-9009-c4c660c32819.jpeg)
+
+
+# ML-FLOW
+
+![WhatsApp Image 2021-04-23 at 04 14 05](https://user-images.githubusercontent.com/18510632/116823072-d5ca0800-ab9b-11eb-82e7-b9cdba953002.jpeg)
+
+NOTE: Due to limitation of our personal computers and no GPUs, we could not able to train whole model in our local machine while using Ml-flow.
+
+# DAGSTER PIPELINE
+
+Our current implementation of pipeline is a proof of concept where the model will get trained. In phase IV, we will further implement to save the training model in docker volume and another pipeline will fetch the model to load it and identify disease. For this course, we will save every image recieved from user and its predicted outcome to docker volume and use these new images to further retrain our model through dagster pipeline. The better approach would be to involve human dependency in identifying if identified disease by model is correct or not and then retrain the model but due to limited time resource we have omitted this step.
+
+![WhatsApp Image 2021-05-02 at 22 23 21](https://user-images.githubusercontent.com/18510632/116822961-27be5e00-ab9b-11eb-8aa8-4267a6817e05.jpeg)
+![WhatsApp Image 2021-05-02 at 22 35 07](https://user-images.githubusercontent.com/18510632/116822965-2b51e500-ab9b-11eb-88f2-2951f3c88f9f.jpeg)
+![WhatsApp Image 2021-05-02 at 22 35 26](https://user-images.githubusercontent.com/18510632/116822971-2e4cd580-ab9b-11eb-8a64-146a1a12d82a.jpeg)
+
+NOTE: Due to limitation of our personal computers and no GPUs, we could not able to train whole model in our local machine while using dagster and Ml-flow. 
+
+
+
 
 
