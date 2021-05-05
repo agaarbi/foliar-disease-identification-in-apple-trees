@@ -75,6 +75,10 @@ Our current implementation of pipeline is a proof of concept where the model wil
 
 NOTE: Due to limitation of our personal computers and no GPUs, we could not able to train whole model in our local machine while using dagster and Ml-flow. 
 
+# PRUNING
+
+![WhatsApp Image 2021-05-02 at 22 23 21](https://github.com/Iamsiraj/foliar-disease-identification/blob/staging/screenshots/Prunning%20Model%20Accuracy.png)
+
 
 
 
