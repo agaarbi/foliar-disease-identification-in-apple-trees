@@ -1,4 +1,5 @@
 import csv
+import datetime
 import shutil
 
 import tensorflow as tf
@@ -8,19 +9,19 @@ from keras.layers import Dense
 from keras.models import model_from_json
 import numpy as np
 import uuid
-
+from dagster import solid, pipeline, execute_pipeline, OutputDefinition, Output, repository, weekly_schedule
 
 json_file = open('model_json.json','r')
 
 
-loaded_model_json = json_file.read()
-json_file.close()
-
-
-
-loaded_model = model_from_json(loaded_model_json)
-loaded_model.load_weights('model_weights.h5')
-loaded_model.compile(optimizer='adam',
+@solid
+def loadModels():
+    loaded_model_json = json_file.read()
+    json_file.close()
+    global loaded_model;
+    loaded_model = model_from_json(loaded_model_json)
+    loaded_model.load_weights('model_weights.h5')
+    loaded_model.compile(optimizer='adam',
                   loss = 'categorical_crossentropy',
                   metrics=['categorical_accuracy'])
 
@@ -76,6 +77,30 @@ def modelRunLoc(file):
         return "Scab"
     else:
         return "Invalid"
+
+@pipeline
+def loadModelPipeline():
+    loadModels();
+
+
+@weekly_schedule(
+    pipeline_name="loadModelPipeline",
+    start_date=datetime.datetime(2020, 1, 1),
+    execution_day_of_week=2,  # Tuesday
+    execution_timezone="US/Central",
+)
+def my_weekly_schedule(date):
+    return {
+        "solids": {
+            "loadModelPipeline": {
+                "inputs": {"date": {"value": date.strftime("%Y-%m-%d")}}
+            }
+        }
+    }
+
+@repository
+def model_repo():
+    return [loadModelPipeline, my_weekly_schedule]
 
 
 #preds = predict(my_image)

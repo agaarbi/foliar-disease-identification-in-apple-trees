@@ -8,7 +8,7 @@ Original file is located at
 """
 
 # !pip install efficientnet
-
+import datetime
 import os
 import gc
 import re
@@ -39,7 +39,7 @@ from sklearn import metrics
 # import matplotlib.pyplot as plt
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
-from dagster import solid, pipeline, execute_pipeline, OutputDefinition, Output
+from dagster import solid, pipeline, execute_pipeline, OutputDefinition, Output, weekly_schedule, repository
 
 # tqdm.pandas()
 # import plotly.express as px
@@ -258,3 +258,23 @@ def run():
     train_dataset,valid_dataset,test_dataset=setting(train_paths, valid_paths, train_labels, valid_labels, test_paths)
     lrfn = build_lrfn()
     model = training(train_labels, train_dataset, valid_dataset, lrfn)
+
+
+@weekly_schedule(
+    pipeline_name="run",
+    start_date=datetime.datetime(2020, 1, 1),
+    execution_day_of_week=1,  # Monday
+    execution_timezone="US/Central",
+)
+def my_weekly_schedule(date):
+    return {
+        "solids": {
+            "run": {
+                "inputs": {"date": {"value": date.strftime("%Y-%m-%d")}}
+            }
+        }
+    }
+
+@repository
+def model_repo():
+    return [run, my_weekly_schedule]
