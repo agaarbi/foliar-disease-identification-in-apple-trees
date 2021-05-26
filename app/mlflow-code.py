@@ -231,6 +231,14 @@ def training(context,train_labels,train_dataset, valid_dataset, lrfn):
     return model
 
 
+@solid
+def savingModel(context, model):
+    model.save_weights("model_weights.h5")
+    modelJson = model.to_json()
+    with open("model_json.json", "w") as json_file:
+        json_file.write(modelJson)
+
+
 def process(img):
     return cv2.resize(img / 255.0, (512, 512)).reshape(-1, 512, 512, 3)
 
@@ -258,6 +266,7 @@ def run():
     train_dataset,valid_dataset,test_dataset=setting(train_paths, valid_paths, train_labels, valid_labels, test_paths)
     lrfn = build_lrfn()
     model = training(train_labels, train_dataset, valid_dataset, lrfn)
+    savingModel(model)
 
 
 @weekly_schedule(
