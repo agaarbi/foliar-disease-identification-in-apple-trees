@@ -1,7 +1,15 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
+FROM tensorflow/tensorflow
 
-RUN python -m pip install tensorflow-cpu==2.3.0rc2
-RUN python -m pip install Keras==2.4.3
-RUN python -m pip install opencv-python
+RUN pip install fastapi uvicorn
+RUN pip install opencv-python
+RUN pip install keras
+RUN pip install python-multipart
+
+RUN apt-get update && \
+    apt-get install libgl1-mesa-glx -y
+
+EXPOSE 80
 
 COPY ./app /app
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]

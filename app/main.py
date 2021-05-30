@@ -1,25 +1,32 @@
+import csv
+import datetime
+import shutil
+
 import tensorflow as tf
 import cv2
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.models import model_from_json
 import numpy as np
-
+import uuid
+from dagster import solid, pipeline, execute_pipeline, OutputDefinition, Output, repository, weekly_schedule
 
 json_file = open('model_json.json','r')
 
 
-loaded_model_json = json_file.read()
-json_file.close()
-
-
-
-loaded_model = model_from_json(loaded_model_json)
-loaded_model.load_weights('model_weights.h5')
-loaded_model.compile(optimizer='adam',
+@solid
+def loadModels():
+    loaded_model_json = json_file.read()
+    json_file.close()
+    global loaded_model;
+    loaded_model = model_from_json(loaded_model_json)
+    loaded_model.load_weights('model_weights.h5')
+    loaded_model.compile(optimizer='adam',
                   loss = 'categorical_crossentropy',
                   metrics=['categorical_accuracy'])
 
+IMAGE_PATH = "C:/Users/siraj/Downloads/plant-pathology-2020/images/"
+TRAIN_PATH="C:/Users/siraj/Work/foliar-disease-identification/data/train.csv"
 
 
 #loading images
@@ -63,13 +70,37 @@ def modelRunLoc(file):
     if(resultInArgMax==0):
        return "Healthy"
     elif(resultInArgMax==1):
-        return "Multiple"
+        return "Multiple Diseases"
     elif(resultInArgMax==2):
         return "Rust"
     elif(resultInArgMax==3):
         return "Scab"
     else:
-        return "WTF"
+        return "Invalid"
+
+@pipeline
+def loadModelPipeline():
+    loadModels();
+
+
+@weekly_schedule(
+    pipeline_name="loadModelPipeline",
+    start_date=datetime.datetime(2020, 1, 1),
+    execution_day_of_week=2,  # Tuesday
+    execution_timezone="US/Central",
+)
+def my_weekly_schedule(date):
+    return {
+        "solids": {
+            "loadModelPipeline": {
+                "inputs": {"date": {"value": date.strftime("%Y-%m-%d")}}
+            }
+        }
+    }
+
+@repository
+def model_repo():
+    return [loadModelPipeline, my_weekly_schedule]
 
 
 #preds = predict(my_image)
@@ -94,9 +125,33 @@ async def create_upload_file(file: UploadFile = File(...)):
 async def predictAPI(file: UploadFile = File(...)):
     content = await file.read()
     nparr = np.fromstring(content, np.uint8)
+
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     myImage = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    return modelRun(myImage)
+    result = modelRun(myImage)
+    id = uuid.uuid4().hex[:8]
+    file.filename = "Train_" + id + ".jpg"
+
+
+    file_location = IMAGE_PATH+"/"+file.filename
+    with open(file_location, 'wb') as file_object:  #saving user input image for future retraining model
+        file_object.write(content)
+
+
+
+    if(result=="Healthy"):
+        fields = [file.filename, 1, 0,0,0]
+    elif(result=="Scab"):
+        fields = [file.filename, 0, 0, 0, 1]
+    elif(result=="Multiple Diseases"):
+        fields = [file.filename, 0, 1, 0, 0]
+    elif(result=="Rust"):
+        fields = [file.filename, 0, 0, 1, 0]
+
+    with open(fr'{TRAIN_PATH}', 'a') as f:  #saving the outcome to train.csv for future retraining
+        writer = csv.writer(f)
+        writer.writerow(fields)
+    return result
 
 
 @app.get("/predict/loc")

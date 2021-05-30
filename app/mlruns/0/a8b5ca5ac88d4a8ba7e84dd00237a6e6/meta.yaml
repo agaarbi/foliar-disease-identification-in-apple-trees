@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/0/a8b5ca5ac88d4a8ba7e84dd00237a6e6/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: a8b5ca5ac88d4a8ba7e84dd00237a6e6
+run_uuid: a8b5ca5ac88d4a8ba7e84dd00237a6e6
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1619133135530
+status: 1
+tags: []
+user_id: siraj
