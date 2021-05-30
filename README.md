@@ -56,7 +56,13 @@ Packages Installed
 
 # DOCKER ON CLOUD
 
+Our docker image running on cloud
+
 ![WhatsApp Image 2021-05-02 at 23 01 41](https://user-images.githubusercontent.com/18510632/116823029-7a981580-ab9b-11eb-9009-c4c660c32819.jpeg)
+
+Hitting our endpoint on cloud address to get model classification result
+
+![Dockerandpostman](https://github.com/Iamsiraj/foliar-disease-identification/blob/staging/screenshots/Postman%20and%20Cloud.png)
 
 
 # ML-FLOW
