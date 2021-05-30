@@ -96,7 +96,7 @@ For comparison, diversity and experimentation with other tools, we have created 
 
 # INTERPRETABILITY
 
-We have implemented interpretability using Captum.
+We must analyze how our model is performing and which areas / features are playing the vital role. For that we have done interpretability. It is also important to debug and improve model. We have used Captum Model Interpretability for PyTorch. Following is the Gradient based attribution using Captum.
 
 ![interpretability](https://github.com/Iamsiraj/foliar-disease-identification/blob/staging/screenshots/Gradient%20based%20attribution.png)
 
