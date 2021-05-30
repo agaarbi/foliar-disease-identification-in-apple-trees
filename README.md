@@ -101,6 +101,17 @@ We must analyze how our model is performing and which areas / features are playi
 ![interpretability](https://github.com/Iamsiraj/foliar-disease-identification/blob/staging/screenshots/Gradient%20based%20attribution.png)
 
 
+# DAGSTER PIPELINE UPDATE
+
+In phase IV, we have update our dagster pipeline by implementing model retraining based on user generated content and also implemented scheduling to train and load model through automation
+
+![image](https://user-images.githubusercontent.com/18510632/120107799-ce3a5680-c17b-11eb-8da8-97be895063f7.png)
+
+![image](https://user-images.githubusercontent.com/18510632/120107829-f75ae700-c17b-11eb-86d6-7c85d9b27ad1.png)
+
+
+
+
 
 
 
