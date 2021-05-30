@@ -86,6 +86,21 @@ NOTE: Due to limitation of our personal computers and no GPUs, we could not able
 ![WhatsApp Image 2021-05-02 at 22 23 21](https://github.com/Iamsiraj/foliar-disease-identification/blob/staging/screenshots/Prunning%20Model%20Accuracy.png)
 
 
+# PHASE IV
+
+# SECOND MODEL
+
+For comparison, diversity and experimentation with other tools, we have created second model with PyTorch
+
+![WhatsApp Image 2021-05-30 at 18 44 02](https://user-images.githubusercontent.com/18510632/120107203-87e3f800-c179-11eb-843b-2fa7aa5f3b6f.jpeg)
+
+# INTERPRETABILITY
+
+We have implemented interpretability using Captum.
+
+![interpretability](https://github.com/Iamsiraj/foliar-disease-identification/blob/staging/screenshots/Gradient%20based%20attribution.png)
+
+
 
 
 
