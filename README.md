@@ -12,7 +12,7 @@ Plant care and diagnosis of plants is a time consuming and expensive work. Misdi
 Currently, disease diagnosis is based on human scouting which as mentioned is a time consuming work load and inefficient. To cater this problem, a diseases detecting application can be highly useful in detecting and make automated decisions.
 
 # Setup Guide
-Data -> you will need to download images data to train your model from this link https://drive.google.com/drive/folders/1_OqKAxASFk1VYgGAJqnheKEab6KP32bn?usp=sharing , if you dont have access to this link please email us at siraj@cipherslab.com
+Data -> you will need to download images data to train your model from this link https://drive.google.com/drive/folders/1_OqKAxASFk1VYgGAJqnheKEab6KP32bn?usp=sharing , if you dont have access to this link please email us at agaarbi@gmail.com
 
 P.S. It is not necessary for you to download images and train the model as we have also uploaded pretrained model in this repo. 
 
