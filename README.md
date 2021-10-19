@@ -2,6 +2,10 @@
 Identify the category of foliar disease in apple trees
 
 
+https://user-images.githubusercontent.com/67458475/137944770-26949065-a28a-4768-a9d7-e94e74c68415.mp4
+
+
+
 # Problem Statement
 Plant care and diagnosis of plants is a time consuming and expensive work. Misdiagnosis is a major problem which may lead to loss of growth and usage of wrong chemicals. Also, while inspecting for disease you also need an experienced and well trained staff to correctly identify disease and take decision accordingly.
 
